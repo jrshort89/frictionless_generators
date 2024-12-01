@@ -5,4 +5,4 @@ Example:
     bin/rails generate obj Thing
 
     This will create:
-        what/will/it/create
+        An object with and x and y value with attribute accesors like 'name' and 'category'
