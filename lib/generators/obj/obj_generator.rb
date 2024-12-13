@@ -33,4 +33,12 @@ class ObjGenerator < Rails::Generators::NamedBase
       exit 1
     end
   end
+
+  def generate_object_file
+    template "model.rb", File.join("app", "models", "#{file_name}.rb")
+  end
+
+  def generate_object_test_file
+    template "model_test.rb", File.join("test", "models", "#{file_name}_test.rb")
+  end
 end

@@ -1,0 +1,10 @@
+# class_name makes the file name as a class aka fancy_name == FancyName
+class <%= class_name %>
+
+    attr_accessor :x, :y
+
+    def initialize
+        @x = x
+        @y = y
+    end
+end
