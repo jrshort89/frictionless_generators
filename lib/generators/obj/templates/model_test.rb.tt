@@ -8,4 +8,17 @@ class <%= class_name %>Test < ActiveSupport::TestCase
   test "the truth" do
     assert_predicate @<%= singular_name %>, present?
   end
+
+  test "supports common Ruby functionality" do
+    assert @<%= singular_name %>.to_h.is_a?(Hash)
+    assert @<%= singular_name %>.to_a.is_a?(Array)
+    assert @<%= singular_name %>.to_s.is_a?(String)
+  end
+
+<% accessors.each do |name| -%>
+test "exposes getter/setter for <%= name %>" do
+  assert @<%= singular_name %>.respond_to?(:<%= name %>)
+  assert @<%= singular_name %>.respond_to?(:<%= name %>=)
+end
+<% end -%>
 end

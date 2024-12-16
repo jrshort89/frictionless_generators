@@ -45,4 +45,30 @@ class ObjGeneratorTest < Rails::Generators::TestCase
       end
     end
   end
+
+  test "supports specifying --comparable for the model" do
+    run_generator %w[Point x y --comparable]
+    assert_file "app/models/point.rb" do |content|
+      assert_match(/include Comparable/, content)
+      assert_instance_method '<=>', content
+    end
+  end
+
+  test "supports specifying or --no-comparable for the model" do
+    run_generator %w[Point x y --no-comparable]
+    assert_file "app/models/point.rb" do |content|
+      assert_no_match(/include Comparable/, content)
+      assert_no_match("def <=>", content)
+    end
+  end
+
+  test "generates the model file" do
+    run_generator
+    assert_file "app/models/point.rb" do |content|
+      assert_match(/class Point/, content)
+      assert_instance_method(:to_h, content)
+      assert_instance_method(:to_a, content)
+      assert_instance_method(:to_s, content)
+    end
+  end
 end

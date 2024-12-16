@@ -1,5 +1,10 @@
 # class_name makes the file name as a class aka fancy_name == FancyName
 class <%= class_name %>
+<% if options.comparable? -%>
+  include Comparable
+
+<% end -%>
+
 
     attr_accessor :x, :y
 
@@ -7,4 +12,22 @@ class <%= class_name %>
         @x = x
         @y = y
     end
+
+<% if options.comparable? -%>
+  def <=>(other)
+    # self.<value> <=> other.<value>
+  end
+<% end -%>
+
+  def to_h
+    { <%= accessors.map { |name| "#{name}: #{name}" }.join(', ') %> }
+  end
+
+  def to_a
+    to_h.values
+  end
+
+  def to_s
+    to_h.values.to_sentence
+  end
 end
